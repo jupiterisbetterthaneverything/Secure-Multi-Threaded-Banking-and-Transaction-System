@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ledgr — The Writer's Banking System</title>
+  
+  <!-- Typography Fonts: Typewriter baseline + Literary Serif Headers -->
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Main Application Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ==================== 1. AUTHENTICATION VIEW ==================== -->
+  <section id="auth-view" class="auth-screen">
+    <div class="auth-card">
+      
+      <!-- Brand Logo Header -->
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Ledgr</span>
+      </div>
+
+      <!-- Book Catalog Styled Toggle Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab is-active" data-tab="login">Log in</button>
+        <button class="auth-tab" data-tab="register">Create account</button>
+      </div>
+
+      <!-- LOG IN FORM -->
+      <form id="login-form" class="auth-form">
+        <label>
+          Username
+          <input type="text" name="username" placeholder="e.g., author_name" required autocomplete="username">
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" placeholder="••••••••" required autocomplete="current-password">
+        </label>
+        <p class="form-error" id="login-error"></p>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+
+      <!-- REGISTER / CREATE ACCOUNT FORM -->
+      <form id="register-form" class="auth-form" hidden>
+        <label>
+          Full name
+          <input type="text" name="fullName" placeholder="e.g., Ernest Hemingway" required autocomplete="name">
+        </label>
+        <label>
+          Username
+          <input type="text" name="username" placeholder="Choose a username" required minlength="3" autocomplete="username">
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" placeholder="Create a strong password" required minlength="8" autocomplete="new-password">
+        </label>
+        <p class="form-hint">At least 8 characters.</p>
+        <p class="form-error" id="register-error"></p>
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+    </div>
+  </section>
+
+
+  <!-- ==================== 2. MAIN DASHBOARD VIEW ==================== -->
+  <section id="dashboard-view" class="dashboard" hidden>
+
+    <!-- Topbar Navigation Shell -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Ledgr</span>
+      </div>
+      <div class="topbar-user">
+        <span id="user-name"></span>
+        <button id="logout-btn" class="btn btn-ghost">Log out</button>
+      </div>
+    </header>
+
+    <!-- Bento Grid Container Content -->
+    <div class="bento">
+
+      <!-- Hero Card: Total Capital/Balance -->
+      <div class="card card-hero">
+        <p class="card-label">Total balance</p>
+        <p class="hero-figure"><span id="total-balance">₹0.00</span></p>
+        <p class="card-sub" id="account-count">0 accounts active</p>
+        <div class="hero-decor" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <!-- Utility Card: Open Vault/Account -->
+      <div class="card card-utility">
+        <p class="card-label">Open an account</p>
+        <form id="open-account-form" class="inline-form">
+          <select name="type" required>
+            <option value="CHECKING">Checking Account</option>
+            <option value="SAVINGS">Savings Account</option>
+          </select>
+          <input type="number" name="openingBalance" placeholder="Opening balance (₹)" min="0" step="0.01" value="0" required>
+          <button type="submit" class="btn btn-outline">Open Account</button>
+        </form>
+        <p class="form-error" id="open-account-error"></p>
+      </div>
+
+      <!-- Accounts Ledger Card List -->
+      <div class="card card-accounts" id="accounts-list">
+        <p class="card-label">Your accounts</p>
+        <div class="account-rows" id="account-rows"></div>
+      </div>
+
+      <!-- Utility Card: Vault Mutation (Deposit / Withdraw) -->
+      <div class="card card-utility">
+        <p class="card-label">Deposit or withdraw</p>
+        <form id="mutate-form" class="inline-form-stack">
+          <select name="accountId" id="mutate-account" required></select>
+          <input type="number" name="amount" placeholder="Transaction Amount (₹)" min="0.01" step="0.01" required>
+          <div class="btn-row">
+            <button type="submit" data-action="deposit" class="btn btn-outline">Deposit</button>
+            <button type="submit" data-action="withdraw" class="btn btn-outline">Withdraw</button>
+          </div>
+        </form>
+        <p class="form-error" id="mutate-error"></p>
+      </div>
+
+      <!-- Moody Plum Card: Inter-account Transfers -->
+      <div class="card card-dark">
+        <p class="card-label card-label-dark">Transfer between accounts</p>
+        <form id="transfer-form" class="inline-form-stack">
+          <label style="color: var(--vintage-paper); font-size: 11px; margin-bottom: -4px;">Source Account</label>
+          <select name="fromAccountId" id="transfer-from" required></select>
+          
+          <label style="color: var(--vintage-paper); font-size: 11px; margin-bottom: -4px;">Destination Account</label>
+          <select name="toAccountId" id="transfer-to" required></select>
+          
+          <input type="number" name="amount" placeholder="Transfer Amount (₹)" min="0.01" step="0.01" required>
+          <button type="submit" class="btn btn-light">Execute Transfer</button>
+        </form>
+        <p class="form-error form-error-dark" id="transfer-error"></p>
+      </div>
+
+      <!-- Ledger Activity History Log -->
+      <div class="card card-ledger">
+        <p class="card-label">Recent transaction history</p>
+        <div class="ledger-table-wrap">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th>Date / Time</th>
+                <th>Account</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Balance After</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-body">
+              <tr>
+                <td colspan="5" class="ledger-empty">Select an account from your catalog to review ledger actions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Single-Page Application JS logic router -->
+  <script src="/js/app.js"></script>
+</body>
+</html>

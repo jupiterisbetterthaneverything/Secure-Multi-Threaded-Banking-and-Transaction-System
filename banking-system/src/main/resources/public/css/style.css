@@ -1,0 +1,367 @@
+/* ===================================================================
+   Dark Academia / Vintage Writer Design Tokens
+   =================================================================== */
+:root {
+  --vintage-paper:   #EFEAD8; /* Aged book page background */
+  --ink-dark:        #1A1625; /* Classic deep ink */
+  --deep-plum:       #2A1D33; /* Dark moody maroon accent */
+  --cherry-red:      #6E1624; /* Deep rich cherry red */
+  --parchment-soft:  #F7F4EB; /* Soft cream color for inner panels */
+  --sepia-line:      #D4CBB3; /* Faded book binding line color */
+  --line:            #DCD3BF; 
+  --line-dark:       rgba(26, 22, 37, 0.15);
+  --danger:          #A6432F;
+  --ok:              #3C6B4E;
+  
+  --radius-lg:       12px;
+  --radius-md:       8px;
+  --radius-sm:       6px;
+  --shadow-vintage:   3px 3px 0px #1A1625; /* Retro tactile block shadow */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: radial-gradient(circle, rgba(0,0,0,0.01) 0%, rgba(0,0,0,0.06) 100%), var(--vintage-paper);
+  color: var(--ink-dark);
+  font-family: 'Courier New', Courier, monospace; /* Typewriter font layout */
+}
+
+h1, h2, h3, .brand-name, .card-label, th { 
+  font-family: 'Playfair Display', Georgia, serif; /* Literary serif headers */
+}
+
+input, select, button {
+  font-family: inherit;
+  font-size: 15px;
+}
+
+/* Ensure elements with the native [hidden] attribute are completely hidden */
+[hidden] {
+  display: none !important;
+}
+
+/* ===================================================================
+   Brand Identity Header
+   =================================================================== */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cherry-red);
+  border: 1.5px solid var(--ink-dark);
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 22px;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+/* ===================================================================
+   Tactile Typewriter Buttons
+   =================================================================== */
+.btn {
+  border: 2px solid var(--ink-dark);
+  border-radius: var(--radius-md);
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-vintage);
+  background: var(--parchment-soft);
+  color: var(--ink-dark);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.btn:active { 
+  transform: translate(2px, 2px); 
+  box-shadow: 1px 1px 0px var(--ink-dark);
+}
+
+.btn-primary {
+  background: var(--deep-plum);
+  color: var(--vintage-paper);
+  width: 100%;
+}
+.btn-primary:hover {
+  background: var(--cherry-red);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--ink-dark);
+}
+.btn-outline:hover { 
+  background: var(--ink-dark); 
+  color: var(--vintage-paper); 
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-dark);
+  border: 1.5px dashed var(--sepia-line);
+  box-shadow: none;
+}
+.btn-ghost:hover { border-color: var(--ink-dark); }
+
+.btn-light {
+  background: var(--vintage-paper);
+  color: var(--ink-dark);
+  width: 100%;
+}
+
+/* ===================================================================
+   Auth Card (Login Screen)
+   =================================================================== */
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 390px;
+  background: var(--parchment-soft);
+  border: 2px solid var(--ink-dark);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  box-shadow: 6px 6px 0px var(--sepia-line);
+}
+
+.auth-card .brand { 
+  margin-bottom: 28px;
+  justify-content: center;
+  border-bottom: 1.5px dashed var(--sepia-line);
+  padding-bottom: 16px;
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--sepia-line);
+  margin-bottom: 24px;
+  gap: 4px;
+}
+
+.auth-tab {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  font-weight: 700;
+  color: var(--ink-dark);
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.auth-tab.is-active {
+  opacity: 1;
+  border-bottom: 3px solid var(--cherry-red);
+  font-style: italic;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.auth-form input {
+  border: 2px solid var(--ink-dark);
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+  background: var(--vintage-paper);
+  color: var(--ink-dark);
+}
+.auth-form input:focus-visible {
+  outline: none;
+  background: #FFF;
+  border-color: var(--cherry-red);
+}
+
+.form-hint {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--cherry-red);
+  margin-top: -8px;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 700;
+  min-height: 16px;
+}
+
+/* ===================================================================
+   Dashboard Bento Shell
+   =================================================================== */
+.dashboard { min-height: 100vh; padding: 24px clamp(16px, 4vw, 48px) 60px; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 4px 24px;
+  border-bottom: 2px dashed var(--sepia-line);
+  margin-bottom: 28px;
+}
+
+.topbar-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 700;
+}
+
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--parchment-soft);
+  border: 2px solid var(--ink-dark);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 4px 4px 0px var(--sepia-line);
+}
+
+.card-label {
+  font-size: 15px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--cherry-red);
+  margin-bottom: 14px;
+}
+.card-label-dark { color: var(--vintage-paper); }
+.card-sub { font-size: 13px; font-style: italic; margin-top: 8px; opacity: 0.8; }
+
+/* Hero Box Layout */
+.card-hero {
+  grid-column: span 7;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-figure { font-size: clamp(36px, 5vw, 48px); font-weight: 800; letter-spacing: -0.02em; margin: 0; }
+.hero-decor {
+  position: absolute;
+  right: -10px;
+  bottom: -20px;
+  display: flex;
+  opacity: 0.15;
+}
+.hero-decor span {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--ink-dark);
+  margin-left: -24px;
+}
+
+.card-utility { grid-column: span 5; }
+.card-accounts { grid-column: span 7; }
+
+.account-rows { display: flex; flex-direction: column; gap: 10px; }
+.account-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1.5px solid var(--ink-dark);
+  border-radius: var(--radius-sm);
+  background: var(--vintage-paper);
+}
+.account-row-type { font-weight: 700; font-family: 'Playfair Display', Georgia, serif; }
+.account-row-id { font-size: 12px; opacity: 0.7; }
+.account-row-balance { font-weight: 700; font-size: 17px; }
+
+/* Dark Card */
+.card-dark {
+  grid-column: span 5;
+  background: var(--deep-plum);
+  color: var(--vintage-paper);
+  border: 2px solid var(--ink-dark);
+}
+.card-dark select, .card-dark input {
+  background: rgba(255,255,255,0.08);
+  color: var(--vintage-paper);
+  border: 1.5px solid rgba(255,255,255,0.2);
+}
+.card-dark select option {
+  background: var(--deep-plum);
+  color: var(--vintage-paper);
+}
+
+/* Ledger Data Table */
+.card-ledger { grid-column: span 12; }
+.ledger-table-wrap { overflow-x: auto; }
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.ledger-table th {
+  text-align: left;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--ink-dark);
+  color: var(--ink-dark);
+}
+.ledger-table td {
+  padding: 12px;
+  border-bottom: 1px dashed var(--sepia-line);
+  white-space: nowrap;
+}
+.ledger-empty { text-align: center; font-style: italic; padding: 20px 0; }
+
+.amount-positive { color: var(--ok); font-weight: 700; }
+.amount-negative { color: var(--danger); font-weight: 700; }
+
+/* Form Fields Setup */
+.inline-form, .inline-form-stack { display: flex; flex-direction: column; gap: 10px; }
+.inline-form select, .inline-form input,
+.inline-form-stack select, .inline-form-stack input {
+  border: 2px solid var(--ink-dark);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  background: var(--vintage-paper);
+  color: var(--ink-dark);
+  width: 100%;
+}
+.btn-row { display: flex; gap: 10px; }
+.btn-row .btn { flex: 1; }
+
+/* Responsive adjustments */
+@media (max-width: 860px) {
+  .card-hero, .card-utility, .card-accounts, .card-dark, .card-ledger {
+    grid-column: span 12;
+  }
+}

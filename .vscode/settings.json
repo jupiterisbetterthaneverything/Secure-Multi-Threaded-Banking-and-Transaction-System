@@ -1,0 +1,23 @@
+{
+    "workbench.colorTheme": "Night Pink",
+    "debug.onTaskErrors": "abort",
+    "code-runner.runInTerminal": true,
+    "security.workspace.trust.enabled": false,
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "Banking System",
+            "database": "banking",
+            "username": "bankuser",
+            "password": "bankpass"
+        }
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
+}

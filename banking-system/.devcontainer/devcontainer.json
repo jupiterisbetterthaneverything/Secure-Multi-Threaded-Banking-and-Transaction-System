@@ -1,0 +1,29 @@
+{
+  "name": "banking-system",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17",
+      "installMaven": true,
+      "mavenVersion": "3.9.6"
+    }
+  },
+  "forwardPorts": [3306],
+  "containerEnv": {
+    "DB_URL": "jdbc:mysql://db:3306/bankdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+    "DB_USER": "bankuser",
+    "DB_PASSWORD": "bankpass"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-mysql"
+      ]
+    }
+  }
+}
